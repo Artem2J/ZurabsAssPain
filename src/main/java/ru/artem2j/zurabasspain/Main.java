@@ -3,14 +3,24 @@ package ru.artem2j.zurabasspain;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Properties;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        parseMessageCodes();
-        //sendRanking();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Выбор действия: \r 1 - Парсить сообщения пользователя \r 2 - Опустить рейтинг пользователю");
+        String choose = "";
+        while (true){
+            choose = reader.readLine();
+            if (choose.equals("1") || choose.equals("2"))break;
+        }
+        reader.close();
+        if (Integer.parseInt(choose) == 1)parseMessageCodes();
+        if (Integer.parseInt(choose) == 2)sendRanking();
+
+
     }
 
     private static void sendRanking() throws IOException {
@@ -34,10 +44,22 @@ public class Main {
 
     }
 
-    public static void parseMessageCodes() throws IOException {
+    private static void parseMessageCodes() throws IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream("src/main/res/target"));
-        String nextUrl = properties.getProperty("acc");
+        System.out.println("Выберете цель:");
+        System.out.println(("1 - " + properties.getProperty("Rozario")));
+        System.out.println(("2 - " + properties.getProperty("Zurab")));
+        BufferedReader cHreader = new BufferedReader(new InputStreamReader(System.in));
+        String choose = "";
+        while (true){
+            choose = cHreader.readLine();
+            if (choose.equals("1") || choose.equals("2"))break;
+        }
+        cHreader.close();
+        String nextUrl = "";
+        if (Integer.parseInt(choose) == 1)nextUrl = properties.getProperty("Rozario");
+        if (Integer.parseInt(choose) == 2)nextUrl = properties.getProperty("Zurab");
 
         while (!nextUrl.equals("")){
             URL url = new URL(nextUrl);
