@@ -9,8 +9,8 @@ import java.util.Properties;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        //parseMessageCodes();
-        sendRanking();
+        parseMessageCodes();
+        //sendRanking();
     }
 
     private static void sendRanking() throws IOException {
